@@ -29,7 +29,7 @@
 
         </div>
         <div class="writin_page">
-            <input type="text" name="" id="">
+            <input type="text" name="text_area" id="">
         </div>
     </div>
 </body>
