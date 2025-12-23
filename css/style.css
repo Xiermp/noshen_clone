@@ -21,11 +21,7 @@ body, html {
 }
 
 .header:hover{
-    /* width: 80%;
-    height: 200px; */
-    /* transform: translateX(80%), translateY(100px);
-    overflow: visible;
-    position: relative; */
+
     height: 100px; 
     width: 80%;
 }
@@ -37,24 +33,22 @@ body, html {
     box-shadow: 0 2px 4px rgba(0,0,0,.1);
     z-index: 1;
 
-    /* make it ready for a fade‑out */
+
     transition: opacity 0.4s, transform 0.4s, height 0.4s, width 0.4s;
-    overflow: hidden;        /* keeps the inner contents from spilling */
-    /* opacity: 0;              fades out */
+    overflow: hidden;
+
     transform: scale(0);     
     height: 0;
     width: 0;
     margin: auto;
 }
 
-/* 4️⃣  “Hidden” variant – 0 opacity + 0 size */
 .fast_reg.unhidden {
-    /* opacity: 0;              fades out */
-    transform: scale(1);     /* shrinks (optional) */
+
+    transform: scale(1);
     height: 30%;
     width: 50%;
-    
-    /* optional; can keep margins/padding etc. to collapse smoothly */
+
 }
 .reg_pos{
     width: 400px;

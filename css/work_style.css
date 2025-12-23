@@ -1,0 +1,57 @@
+.main_er {
+    height: 100%;
+    width: 100%;
+    background-color: burlywood;
+
+}
+
+.left_main_catalog{
+    height: 90%;
+    width: 5%;
+    background-color: azure;
+    transition: height 0.35s ease, width 0.35s;
+
+}
+
+.left_main_catalog:hover{
+    width: 20%;
+}
+
+.top_icons{
+    /* height: 100%; */
+    /* width: 100%; */
+    background-color: black;
+    border: 2px solid rgb(255, 194, 82);
+    overflow: hidden;
+    
+    opacity: 0;
+}
+
+.left_main_catalog:hover .top_icons{
+    opacity: 1;
+    
+}
+
+.icon_holder{
+    height: 5%;
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+}
+.main_list{
+    background-color: brown;
+    /* width: 80%; */
+    height: 100%;
+
+}
+.main_list .documents{
+    height: 20px;
+    width: 20px;
+    background-color: aquamarine;
+    margin: 10px;
+    padding: 2px;
+}
+.main_er .writin_page{
+    background-color: cadetblue;
+    height: 100%;
+    width: 100%;
+}
