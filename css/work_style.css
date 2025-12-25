@@ -51,7 +51,139 @@
     padding: 2px;
 }
 .main_er .writin_page{
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
+    /* height: 100%;
+    width: 100%; */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    z-index: -10;
+
+}
+.preaty_box{
+    background-color: black;
+    height: 200px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    /* z-index: 0; */
+}
+
+@property --deg{
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+}
+.preaty_box::before, .preaty_box::after{
+    content: "";
+    position: absolute;
     height: 100%;
     width: 100%;
+    background: conic-gradient(
+        from var(--deg) at center,
+        #00c3ff,
+        #4d0199,
+        #6400c6,
+        #009dcc
+
+    );
+    border-radius: inherit;
+    z-index: -2;
+    padding: 2px;
+    animation: autoRotate 2s linear infinite;
+}
+.preaty_box::after{
+    z-index: -1;
+    filter: blur(10px);
+
+}
+
+@keyframes autoRotate {
+    to {
+        --deg: 360deg;
+    }
+
+}
+
+button{
+    position: relative;
+    height: 50px;
+    width: 150px;
+    background: none;
+    outline: none;
+    padding: 0;
+    border: 0;
+}
+.b_top {
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    font-family: poppins;
+    font-size: 16px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7mm;
+    outline: 2px solid black;
+    /* z-index: -1; */
+
+}
+.b_bottom{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 254, 182);
+    font-family: poppins;
+    font-size: 16px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7mm;
+    outline: 2px solid black;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    z-index: -1;
+}
+.b_bottom::before{
+    content: "";
+    width: 2px;
+    height: 9px;
+    background: #4d0199;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+
+}
+.b_bottom::after{
+    content: "";
+    width: 2px;
+    height: 9px;
+    background: #4d0199;
+    position: absolute;
+    bottom: 0;
+    left: 85%;
+}
+button::before{
+    content: "";
+    height: 100%;
+    background: grey;
+    border-radius: 7mm;
+    outline: 2px solid black;
+    position: absolute;
+    top: 14px;
+    width: calc(100% + 2px);
+    left: -1px;
+    z-index: -1;
+}
+button:active .b_top{
+    transform: translateY(10px);
+    transition: 0.2s;
 }

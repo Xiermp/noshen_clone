@@ -32,8 +32,15 @@
 
         </div>
         <div class="writin_page">
-            <input type="text" name="text_area" id="">
+            <!-- <input type="text" name="text_area" id=""> -->
+            <div class="preaty_box"></div>
         </div>
+        
+
     </div>
+    <button type="button">
+            <div class="b_top">click</div>
+            <div class="b_bottom"></div>
+        </button>
 </body>
 </html>
