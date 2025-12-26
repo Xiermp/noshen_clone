@@ -178,6 +178,7 @@ $your_num = rand(1, 9999); // Example dynamic content
 <div class="app-container">
     <script>
         let spawn = document.querySelector('[name="user-menu"]');
+        // a
     </script>
     <aside class="sidebar">
         <div class="user-switcher">
