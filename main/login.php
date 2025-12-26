@@ -3,49 +3,45 @@ session_start();
 
 // Database Configuration
 $servername = "localhost";
-$username = "root"; // Default XAMPP/WAMP username
-$password_db = "";  // Default XAMPP/WAMP password (usually empty)
+$username = "root";
+$password_db = "";
 $dbname = "notion_clone";
 
-// 1. Connect to Database
+// Connect to Database
 $conn = new mysqli($servername, $username, $password_db, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 $error_message = "";
 
-// 2. Handle Form Submission
+// Handle Login Logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect and sanitize input
-    $first_name = $conn->real_escape_string($_POST['first_name']);
-    $second_name = $conn->real_escape_string($_POST['second_name']);
     $email = $conn->real_escape_string($_POST['email']);
-    $password_raw = $_POST['password'];
-    $check_password = $_POST['check_password'];
+    $password_input = $_POST['password'];
 
-    // Basic Validation
-    if ($password_raw !== $check_password) {
-        $error_message = "Passwords do not match!";
-    } else {
-        // 3. Securely Hash the Password (Never store plain text passwords!)
-        $hashed_password = password_hash($password_raw, PASSWORD_DEFAULT);
+    // SQL query to find user by email
+    $sql = "SELECT id, first_name, password FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
 
-        // 4. Insert into Database
-        $sql = "INSERT INTO users (first_name, second_name, email, password) 
-                VALUES ('$first_name', '$second_name', '$email', '$hashed_password')";
-
-        if ($conn->query($sql) === TRUE) {
-            // Success: Log them in instantly or redirect
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        
+        // Verify the hashed password
+        if (password_verify($password_input, $row['password'])) {
+            // Success! Start Session
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_name'] = $row['first_name'];
             $_SESSION['user_email'] = $email;
-            $_SESSION['user_name'] = $first_name;
+            
             header("Location: work_area.php");
             exit();
         } else {
-            $error_message = "Error: " . $sql . "<br>" . $conn->error;
+            $error_message = "Invalid password.";
         }
+    } else {
+        $error_message = "No account found with that email.";
     }
 }
 $conn->close();
@@ -56,24 +52,23 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notion Clone - Sign Up</title>
+    <title>Log in - Notion</title>
     <link rel="stylesheet" href="../css/style_2.css">
     <style>
-        /* Simple inline styles to utilize your CSS variables */
         body {
             font-family: var(--font-family-sans);
-            background-color: var(--color-white);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: var(--color-white);
             color: var(--color-text);
+            margin: 0;
         }
-        .auth-container {
+        .login-container {
             width: 100%;
-            max-width: 400px;
-            padding: var(--spacing-32);
+            max-width: 360px;
+            padding: var(--spacing-24);
             text-align: center;
         }
         h1 {
@@ -97,14 +92,14 @@ $conn->close();
             border: 1px solid var(--color-gray-300);
             border-radius: var(--border-radius-200);
             font-size: var(--font-size-100);
-            box-sizing: border-box; /* Ensures padding doesn't break width */
+            box-sizing: border-box;
         }
         input:focus {
             outline: 2px solid var(--color-blue-400);
             border-color: transparent;
         }
         button {
-            background-color: var(--color-red-500); /* Notion often uses red/pink for buttons */
+            background-color: var(--color-red-500);
             color: white;
             border: none;
             padding: var(--spacing-8) var(--spacing-16);
@@ -119,35 +114,37 @@ $conn->close();
         }
         .error {
             color: var(--color-red-600);
-            font-size: var(--font-size-100);
+            background: var(--color-red-100);
+            padding: var(--spacing-8);
+            border-radius: var(--border-radius-200);
             margin-bottom: var(--spacing-16);
+            font-size: var(--font-size-100);
+        }
+        .bottom-link {
+            margin-top: var(--spacing-24);
+            font-size: var(--font-size-100);
+            color: var(--color-gray-600);
+        }
+        .bottom-link a {
+            color: var(--color-text);
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="auth-container">
+    <div class="login-container">
         <div style="margin-bottom: 20px;">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="black"/></svg>
+             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="black"/></svg>
         </div>
 
-        <h1>Sign up</h1>
+        <h1>Log in</h1>
 
         <?php if (!empty($error_message)): ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php endif; ?>
 
-        <form action="registration.php" method="POST">
-            <div class="input-group">
-                <label>First Name</label>
-                <input type="text" name="first_name" required placeholder="Enter first name">
-            </div>
-            
-            <div class="input-group">
-                <label>Last Name</label>
-                <input type="text" name="second_name" required placeholder="Enter last name">
-            </div>
-
+        <form action="login.php" method="POST">
             <div class="input-group">
                 <label>Email</label>
                 <input type="email" name="email" required placeholder="Enter your email">
@@ -155,20 +152,18 @@ $conn->close();
 
             <div class="input-group">
                 <label>Password</label>
-                <input type="password" name="password" required placeholder="Create a password">
-            </div>
-
-            <div class="input-group">
-                <label>Confirm Password</label>
-                <input type="password" name="check_password" required placeholder="Confirm password">
+                <input type="password" name="password" required placeholder="Enter your password">
             </div>
 
             <button type="submit">Continue</button>
         </form>
-        
-        <p style="margin-top: 20px; font-size: var(--font-size-50);">
-            Already have an account? <a href="login.php" style="color: var(--color-blue-600);">Log in</a>
-        </p>
+
+        <div class="bottom-link">
+            Don't have an account? <a href="registration.php">Sign up</a>
+        </div>
+        <div class="bottom-link" style="margin-top: 10px;">
+            <a href="index.php">Back to Home</a>
+        </div>
     </div>
 
 </body>
