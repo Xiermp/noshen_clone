@@ -91,11 +91,11 @@
         }
 
         .btn-primary {
-            background-color: var(--color-blue-600); /* Notion Blue */
+            background-color: var(--color-purple-600); /* Notion Blue */
             color: white;
         }
         .btn-primary:hover {
-            background-color: var(--color-blue-700);
+            background-color: var(--color-purple-700);
         }
 
         .btn-secondary {
@@ -107,12 +107,12 @@
         }
 
         .btn-hero-secondary {
-            background-color: var(--color-blue-100);
-            color: var(--color-blue-600);
+            background-color: var(--color-purple-100);
+            color: var(--color-purple-600);
             font-weight: var(--font-weight-semibold);
         }
         .btn-hero-secondary:hover {
-            background-color: var(--color-blue-200);
+            background-color: var(--color-purple-200);
         }
 
         .hero-buttons {

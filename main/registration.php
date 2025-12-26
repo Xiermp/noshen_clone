@@ -49,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 $conn->close();
+
+$Main_user_file = mkdir("../data/user_files/".$_SESSION['user_email'], 0777, true);
 ?>
 
 <!DOCTYPE html>
