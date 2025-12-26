@@ -1,5 +1,11 @@
 <?php
     session_start();
+    $firt_name = $_POST['first_name'];
+    $second_name = $_POST['second_name'];
+    $paswword = $_POST['password'];
+    $cheak_password = $_POST['cheak_password'];
+    $email = $_POST['email'];
+
 
 ?>
 
@@ -11,9 +17,12 @@
     <link rel="stylesheet" href="..\css\style.css">
 </head>
 <body>
-    <div class="global_navigation">
-        <div>aasd</div>
-    </div>
+    <nav>
+        <div class="global_navigation">
+            <div>aasd</div>
+        </div>
+    </nav>
+    
     <!-- <header>hello</header> -->
     <div class="header">
         <nav>
@@ -46,6 +55,7 @@
     document.getElementById('hideBtn').onclick = function () {
     document.getElementById('regBox').classList.toggle('unhidden');
 };
+
 </script>
 </body>
 </html>

@@ -14,8 +14,11 @@
         <div class="left_main_catalog">
             <div class="icon_holder">
                 <div class="top_icons">a</div>
+                <!-- <button class="top_icons"></button> -->
                 <div class="top_icons">s</div>
+                <!-- <button class="top_icons"></button> -->
                 <div class="top_icons">fd</div>
+                <!-- <button class="top_icons"></button> -->
                 <!-- <div class="top_icons">fd</div> -->
             </div>
 
@@ -38,7 +41,7 @@
         
 
     </div>
-    <button type="button">
+    <button type="button" class="button">
             <div class="b_top">click</div>
             <div class="b_bottom"></div>
         </button>
