@@ -64,6 +64,13 @@ if ($hour < 12) {
 } else {
     $greeting = "Good evening";
 }
+//  probably i use it late
+// if (!isset($_SESSION['already_welcomed'])){
+
+//     $_SESSION['your_number'] = rand(1, 9999);
+//     $_SESSION['already_welcomed'] = true;
+// }
+// $your_num = $_SESSION['your_number'];
 
 $your_num = rand(1, 9999);
 ?>
@@ -106,7 +113,7 @@ $your_num = rand(1, 9999);
         <a href="#" class="sidebar-menu-item">
             <span>📥</span> Inbox
         </a>
-        <a href="#" class="sidebar-menu-item">
+        <a href="?page=settings" class="sidebar-menu-item <?php echo (isset($_GET['page']) && $_GET['page'] === 'settings') ? 'active' : ''; ?>">
             <span>⚙️</span> Settings
         </a>
         
@@ -145,26 +152,31 @@ $your_num = rand(1, 9999);
     <main class="main-content">
     <?php
         if (isset($_GET['file'])) {
-            // Если выбран файл, загружаем редактор
-            // Убедитесь, что file_redactor.php существует в этой же папке
+            // 1. Показываем редактор файлов
             if (file_exists("layout/editor.php")) {
                 include "layout/editor.php";
             } else {
                 echo "<div style='padding:20px'>Error: Editor file not found.</div>";
             }
-        } else {
-            // Если файл не выбран, показываем Home Dashboard
-            // Передаем переменную приветствия, чтобы home.php мог её использовать
-            // include "layout/home.php"; 
-            
-            // Для теста, если layout/home.php еще не настроен идеально:
+        } 
+        elseif (isset($_GET['page']) && $_GET['page'] === 'settings') {
+            // 2. Показываем страницу настроек
+            // Создай этот файл в layout/settings.php
+            if (file_exists("layout/settings.php")) {
+                include "layout/settings.php";
+            } else {
+                echo "<div style='padding:50px'><h1>Settings</h1><p>Настройки профиля в разработке...</p></div>";
+            }
+        } 
+        else {
+            // 3. Домашняя страница (Home Dashboard)
             if (file_exists("layout/home.php")) {
                 include "layout/home.php";
             } else {
                 echo "<div style='padding:50px'>
                         <h1>$greeting, " . htmlspecialchars($_SESSION['user_name']) . "</h1>
                         <p>Select a page from the sidebar to start writing.</p>
-                      </div>";
+                    </div>";
             }
         }
     ?>
