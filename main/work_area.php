@@ -5,7 +5,14 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-
+$user_dir = "../data/user_files/".$_SESSION['user_email'];
+if (!is_dir($user_dir)) {
+    // If user_email is not set in session, redirect to login
+    mkdir($user_dir, 0777, true);
+} else {
+    connection_status();
+}
+// echo "Директория для пользователя успешно создана: {$user_dir}";
 // Get the time of day for the greeting (Morning/Afternoon/Evening)
 $hour = date('H');
 if ($hour < 12) {
@@ -16,6 +23,7 @@ if ($hour < 12) {
     $greeting = "Good evening";
 }
 $your_num = rand(1, 9999); // Example dynamic content
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +33,9 @@ $your_num = rand(1, 9999); // Example dynamic content
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Notion Clone</title>
     <link rel="stylesheet" href="../css/style_2.css">
+    <script src="../scripts/interface_scripts.js">
+
+    </script>
     <style>
         /* CSS Specific to the Workspace Layout */
         /* body {
@@ -65,6 +76,7 @@ $your_num = rand(1, 9999); // Example dynamic content
             flex-shrink: 0;
             font-size: var(--font-size-100);
             color: var(--color-gray-600);
+            /* overflow: scroll; */
         }
 
         .user-switcher {
@@ -113,6 +125,16 @@ $your_num = rand(1, 9999); // Example dynamic content
             margin-top: var(--spacing-24);
             margin-bottom: var(--spacing-4);
             padding-left: 10px;
+            /* overflow: scroll; */
+        }
+        .sidebar-section-workspace {
+            font-size: var(--font-size-50);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-gray-500);
+            margin-top: var(--spacing-24);
+            margin-bottom: var(--spacing-4);
+            padding-left: 10px;
+            overflow: scroll;
         }
 
         /* --- MAIN CONTENT AREA --- */
@@ -204,10 +226,47 @@ $your_num = rand(1, 9999); // Example dynamic content
         <a href="#" class="sidebar-menu-item">
             <span>📓</span> Journal
         </a>
-        <a href="#" class="sidebar-menu-item" style="color: var(--color-gray-400);">
+
+
+        
+        <a href="?create=1" class="sidebar-menu-item" style=";">
             <span>➕</span> Add a page
         </a>
+        <div class="sidebar-section-workspace">
+        <?php
 
+        if (isset($_GET['create'])) {
+            // $user_dir = "../data/user_files/" . $_SESSION['user_email'];
+            
+
+            // if (!is_dir($user_dir)) {
+            //     mkdir($user_dir, 0777, true);
+            // }
+            
+
+            $file_name = rand(1,100) . ".md";
+            $fullFilePath = "$user_dir/$file_name";
+
+            
+            if (($handle = fopen($fullFilePath, 'w')) !== false) {
+                fclose($handle);
+                
+                echo '<a href="#" class="sidebar-menu-item" style="color: var(--color-gray-400);">
+                        hello '.$file_name.'
+                    </a>';
+            }
+        }
+        ?>
+        <?php
+        $files = scandir($user_dir);
+        foreach ($files as $file) {
+            if ($file === '.' || $file === '..') continue; // Skip current and parent directory entries
+            echo '<a href="#" class="sidebar-menu-item" style="color: var(--color-gray-400);">
+                    <span>📄</span> '.$file.'
+                </a>';
+        }
+        ?>
+        </div>
         <div style="margin-top: auto;">
             <a href="index.php" class="sidebar-menu-item">
                 <span>🚪</span> Log out
