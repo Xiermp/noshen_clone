@@ -1,19 +1,61 @@
 <?php
 session_start();
-// Security Check: Redirect to login if user is not signed in
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-$user_dir = "../data/user_files/".$_SESSION['user_email'];
+
+$user_dir = "../data/user_files/" . $_SESSION['user_email'];
+
 if (!is_dir($user_dir)) {
-    // If user_email is not set in session, redirect to login
     mkdir($user_dir, 0777, true);
-} else {
-    connection_status();
 }
-// echo "Директория для пользователя успешно создана: {$user_dir}";
-// Get the time of day for the greeting (Morning/Afternoon/Evening)
+
+// Логика создания новой страницы
+if (isset($_GET['create'])) {
+    // Используем .md для формата Notion
+    $newFileName = "Untitled_" . date('Ymd_His') . ".md"; 
+    $newFilePath = $user_dir . "/" . $newFileName;
+    
+    if (!file_exists($newFilePath)) {
+        file_put_contents($newFilePath, ""); 
+    }
+    
+    header("Location: ?file=" . urlencode($newFileName));
+    exit();
+}
+// session_start();
+
+// // 1. Security Check
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php");
+//     exit();
+// }
+
+// $user_dir = "../data/user_files/" . $_SESSION['user_email'];
+
+// // 2. Ensure User Directory Exists
+// if (!is_dir($user_dir)) {
+//     mkdir($user_dir, 0777, true);
+// }
+
+// // 3. LOGIC: Create New Page
+// // Если нажали "Add a page", создаем файл и редиректим на него
+// if (isset($_GET['create'])) {
+//     $newFileName = "Untitled_" . date('Ymd_His') . ".txt"; // Уникальное имя
+//     $newFilePath = $user_dir . "/" . $newFileName;
+    
+//     if (!file_exists($newFilePath)) {
+//         file_put_contents($newFilePath, ""); // Создаем пустой файл
+//     }
+    
+//     // Перенаправляем пользователя сразу в этот файл
+//     header("Location: ?file=" . urlencode($newFileName));
+//     exit();
+// }
+
+// 4. Greeting Logic
 $hour = date('H');
 if ($hour < 12) {
     $greeting = "Good morning";
@@ -22,8 +64,8 @@ if ($hour < 12) {
 } else {
     $greeting = "Good evening";
 }
-$your_num = rand(1, 9999); // Example dynamic content
 
+$your_num = rand(1, 9999);
 ?>
 
 <!DOCTYPE html>
@@ -32,184 +74,33 @@ $your_num = rand(1, 9999); // Example dynamic content
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Notion Clone</title>
+    
     <link rel="stylesheet" href="../css/style_2.css">
-    <script src="../scripts/interface_scripts.js">
+    <link rel="stylesheet" href="../css/style_work_ar.css">
+    
+    <script src="../scripts/interface_scripts.js" defer></script>
 
-    </script>
     <style>
         /* CSS Specific to the Workspace Layout */
-        /* body {
-            margin: 0;
-            font-family: var(--font-family-sans);
-            color: var(--color-text);
-            background-color: var(--color-white);
-            height: 100vh;
-            overflow: hidden; /* Prevent body scroll, let specific areas scroll */
-        /* } */ 
-        body {
-            margin: 0;
-            font-family: var(--font-family-sans);
-            background: var(--color-gray-100);
-        }
-
-        /* .workspace {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            background: var(--color-gray-200);
-        } */
-
-        .app-container {
-            display: flex;
-            height: 100%;
-            width: 100%;
-        }
-
-        /* --- SIDEBAR STYLES --- */
-        .sidebar {
-            width: 240px;
-            background-color: var(--color-gray-100);
-            border-right: 1px solid var(--color-gray-300);
-            display: flex;
-            flex-direction: column;
-            padding: var(--spacing-12);
-            flex-shrink: 0;
-            font-size: var(--font-size-100);
-            color: var(--color-gray-600);
-            /* overflow: scroll; */
-        }
-
-        .user-switcher {
-            padding: var(--spacing-8);
-            margin-bottom: var(--spacing-12);
-            font-weight: var(--font-weight-medium);
-            color: var(--color-text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            border-radius: var(--border-radius-200);
-        }
-        .user-switcher:hover { background-color: var(--color-gray-200); }
-
-        .user-switcher:active 
-        .user-menu { 
-            margin-left: 100px;
-            margin-top: 120px;
-            height: 100px;
-            width: 200px;
-            position: absolute;
-            background-color: var(--color-gray-900);
-            transition: 1s;
-            
-         }
-
-        .sidebar-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 10px;
-            color: var(--color-gray-700);
-            text-decoration: none;
-            border-radius: var(--border-radius-200);
-            margin-bottom: 2px;
-            font-weight: var(--font-weight-medium);
-        }
-        .sidebar-menu-item:hover { background-color: var(--color-gray-200); }
-        .sidebar-menu-item.active { background-color: var(--color-gray-200); color: var(--color-text); }
         
-        .sidebar-section-title {
-            font-size: var(--font-size-50);
-            font-weight: var(--font-weight-semibold);
-            color: var(--color-gray-500);
-            margin-top: var(--spacing-24);
-            margin-bottom: var(--spacing-4);
-            padding-left: 10px;
-            /* overflow: scroll; */
-        }
-        .sidebar-section-workspace {
-            font-size: var(--font-size-50);
-            font-weight: var(--font-weight-semibold);
-            color: var(--color-gray-500);
-            margin-top: var(--spacing-24);
-            margin-bottom: var(--spacing-4);
-            padding-left: 10px;
-            overflow: scroll;
-        }
-
-        /* --- MAIN CONTENT AREA --- */
-        .main-content {
-            flex-grow: 1;
-            padding: var(--spacing-32) var(--spacing-64);
-            overflow-y: auto; /* Allow this area to scroll */
-            background-color: var(--color-white);
-        }
-
-        .greeting-title {
-            font-size: var(--font-size-700);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--spacing-32);
-            text-align: center;
-        }
-
-        /* Widgets (Recently Visited / Learn) */
-        .widget-section { margin-bottom: var(--spacing-48); }
-        
-        .section-header {
-            font-size: var(--font-size-100);
-            font-weight: var(--font-weight-semibold);
-            color: var(--color-gray-500);
-            margin-bottom: var(--spacing-12);
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: var(--spacing-16);
-        }
-
-        .card {
-            border: 1px solid var(--color-gray-200);
-            border-radius: var(--border-radius-400);
-            padding: var(--spacing-16);
-            background: var(--color-white);
-            box-shadow: var(--shadow-level-100);
-            transition: box-shadow 0.2s, background 0.2s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 120px;
-        }
-
-        .card:hover {
-            background-color: var(--color-gray-100);
-            box-shadow: var(--shadow-level-200);
-        }
-
-        .card-icon { font-size: 24px; margin-bottom: var(--spacing-8); }
-        .card-title { font-weight: var(--font-weight-medium); font-size: var(--font-size-100); }
-        .card-meta { font-size: var(--font-size-50); color: var(--color-gray-500); margin-top: auto; }
-
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <script>
-        let spawn = document.querySelector('[name="user-menu"]');
-        // a
-    </script>
+
     <aside class="sidebar">
         <div class="user-switcher">
-            <div style="width: 20px; height: 20px; background: orange; border-radius: 4px; display:flex; justify-content:center; align-items:center; color:white; font-size:12px;">N</div>
+            <div style="width: 20px; height: 20px; background: orange; border-radius: 4px; display:flex; justify-content:center; align-items:center; color:white; font-size:12px;">
+                <?php echo strtoupper(substr($_SESSION['user_name'], 0, 1)); ?>
+            </div>
             <span><?php echo htmlspecialchars($_SESSION['user_name']); ?>'s Notion</span>
-            <div class="user-menu" name="user-menu"></div>
+            <div class="user-menu" name="user-menu">
+                <small>Settings</small>
+            </div>
         </div>
 
-        <a href="#" class="sidebar-menu-item active">
+        <a href="?" class="sidebar-menu-item <?php echo !isset($_GET['file']) ? 'active' : ''; ?>">
             <span>🏠</span> Home
         </a>
         <a href="#" class="sidebar-menu-item">
@@ -218,55 +109,32 @@ $your_num = rand(1, 9999); // Example dynamic content
         <a href="#" class="sidebar-menu-item">
             <span>⚙️</span> Settings
         </a>
-
-        <div class="sidebar-section-title">Private</div>
-        <a href="#" class="sidebar-menu-item">
-            <span>📄</span> To Do List
-        </a>
-        <a href="#" class="sidebar-menu-item">
-            <span>📓</span> Journal
-        </a>
-
-
         
-        <a href="?create=1" class="sidebar-menu-item" style=";">
+        <div class="sidebar-section-title">Private</div>
+        
+        <a href="?create=1" class="sidebar-menu-item">
             <span>➕</span> Add a page
         </a>
+
         <div class="sidebar-section-workspace">
         <?php
-
-        if (isset($_GET['create'])) {
-            // $user_dir = "../data/user_files/" . $_SESSION['user_email'];
-            
-
-            // if (!is_dir($user_dir)) {
-            //     mkdir($user_dir, 0777, true);
-            // }
-            
-
-            $file_name = rand(1,100) . ".md";
-            $fullFilePath = "$user_dir/$file_name";
-
-            
-            if (($handle = fopen($fullFilePath, 'w')) !== false) {
-                fclose($handle);
-                
-                echo '<a href="#" class="sidebar-menu-item" style="color: var(--color-gray-400);">
-                        hello '.$file_name.'
-                    </a>';
-            }
-        }
-        ?>
-        <?php
+        // Сканируем папку пользователя и выводим файлы
         $files = scandir($user_dir);
         foreach ($files as $file) {
-            if ($file === '.' || $file === '..') continue; // Skip current and parent directory entries
-            echo '<a href="#" class="sidebar-menu-item" style="color: var(--color-gray-400);">
-                    <span>📄</span> '.$file.'
-                </a>';
+            if ($file === '.' || $file === '..') continue; 
+            
+            // Проверяем, активен ли этот файл сейчас
+            $isActive = (isset($_GET['file']) && $_GET['file'] === $file) ? 'active' : '';
+            
+            echo '<a href="?file='.urlencode($file).'" class="sidebar-menu-item '.$isActive.'">
+                <span>📄</span> '.htmlspecialchars($file).'
+            </a>';
         }
         ?>
         </div>
+        
+        
+
         <div style="margin-top: auto;">
             <a href="index.php" class="sidebar-menu-item">
                 <span>🚪</span> Log out
@@ -274,59 +142,32 @@ $your_num = rand(1, 9999); // Example dynamic content
         </div>
     </aside>
 
-
     <main class="main-content">
-        
-        <h1 class="greeting-title"><?php echo $greeting; ?>, <?php echo htmlspecialchars($_SESSION['user_name']); ?><br>your number is : <?php echo $your_num ?></h1>
-
-        <div class="widget-section">
-            <div class="section-header">🕒 Recently visited</div>
+    <?php
+        if (isset($_GET['file'])) {
+            // Если выбран файл, загружаем редактор
+            // Убедитесь, что file_redactor.php существует в этой же папке
+            if (file_exists("layout/editor.php")) {
+                include "layout/editor.php";
+            } else {
+                echo "<div style='padding:20px'>Error: Editor file not found.</div>";
+            }
+        } else {
+            // Если файл не выбран, показываем Home Dashboard
+            // Передаем переменную приветствия, чтобы home.php мог её использовать
+            // include "layout/home.php"; 
             
-            <div class="card-grid">
-                <a href="#" class="card">
-                    <div>
-                        <div class="card-icon">👋</div>
-                        <div class="card-title">Welcome to Notion</div>
-                    </div>
-                    <div class="card-meta">You visited 5m ago</div>
-                </a>
-
-                <a href="#" class="card">
-                    <div>
-                        <div class="card-icon">✅</div>
-                        <div class="card-title">Task List</div>
-                    </div>
-                    <div class="card-meta">You visited 1h ago</div>
-                </a>
-                
-                <a href="#" class="card" style="border-style: dashed;">
-                    <div>
-                        <div class="card-icon">➕</div>
-                        <div class="card-title">New page</div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="widget-section">
-            <div class="section-header">📚 Learn</div>
-            
-            <div class="card-grid">
-                <a href="#" class="card">
-                    <div class="card-title">What is a block?</div>
-                    <div class="card-meta">2m read</div>
-                </a>
-                <a href="#" class="card">
-                    <div class="card-title">Customize & style</div>
-                    <div class="card-meta">5m read</div>
-                </a>
-                <a href="#" class="card">
-                    <div class="card-title">Create your first page</div>
-                    <div class="card-meta">Video • 4m</div>
-                </a>
-            </div>
-        </div>
-
+            // Для теста, если layout/home.php еще не настроен идеально:
+            if (file_exists("layout/home.php")) {
+                include "layout/home.php";
+            } else {
+                echo "<div style='padding:50px'>
+                        <h1>$greeting, " . htmlspecialchars($_SESSION['user_name']) . "</h1>
+                        <p>Select a page from the sidebar to start writing.</p>
+                      </div>";
+            }
+        }
+    ?>
     </main>
 
 </div>

@@ -1,0 +1,225 @@
+/* CSS Specific to the Workspace Layout */
+        /* body {
+            margin: 0;
+            font-family: var(--font-family-sans);
+            color: var(--color-text);
+            background-color: var(--color-white);
+            height: 100vh;
+            overflow: hidden; /* Prevent body scroll, let specific areas scroll */
+        /* } */ 
+body {
+        margin: 0;
+        font-family: var(--font-family-sans);
+        background: var(--color-gray-100);
+        height: 100vh; /* ЭТО ОБЯЗАТЕЛЬНО для работы flex-контейнера на весь экран */
+        overflow: hidden; /* Чтобы скроллились только области внутри, а не весь сайт */
+    }
+
+/* .workspace {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: var(--color-gray-200);
+} */
+
+.app-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+/* --- SIDEBAR STYLES --- */
+.sidebar {
+    width: 240px;
+    background-color: var(--color-gray-100);
+    border-right: 1px solid var(--color-gray-300);
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-12);
+    flex-shrink: 0;
+    font-size: var(--font-size-100);
+    color: var(--color-gray-600);
+}
+
+.user-switcher {
+    padding: var(--spacing-8);
+    margin-bottom: var(--spacing-12);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: var(--border-radius-200);
+}
+.user-switcher:hover { background-color: var(--color-gray-200); }
+
+.user-switcher:active 
+.user-menu { 
+    margin-left: 100px;
+    margin-top: 120px;
+    height: 100px;
+    width: 200px;
+    position: absolute;
+    background-color: var(--color-gray-900);
+    transition: 1s;
+    
+    }
+
+.sidebar-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    color: var(--color-gray-700);
+    text-decoration: none;
+    border-radius: var(--border-radius-200);
+    margin-bottom: 2px;
+    font-weight: var(--font-weight-medium);
+}
+.sidebar-menu-item:hover { background-color: var(--color-gray-200); }
+.sidebar-menu-item.active { background-color: var(--color-gray-200); color: var(--color-text); }
+
+.sidebar-section-title {
+    font-size: var(--font-size-50);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-500);
+    margin-top: var(--spacing-24);
+    margin-bottom: var(--spacing-4);
+    padding-left: 10px;
+}
+
+/* --- MAIN CONTENT AREA --- */
+.main-content {
+    flex-grow: 1;
+    padding: var(--spacing-32) var(--spacing-64);
+    overflow-y: auto; /* Allow this area to scroll */
+    background-color: var(--color-white);
+}
+
+.greeting-title {
+    font-size: var(--font-size-700);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-32);
+    text-align: center;
+}
+
+/* Widgets (Recently Visited / Learn) */
+.widget-section { margin-bottom: var(--spacing-48); }
+
+.section-header {
+    font-size: var(--font-size-100);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-500);
+    margin-bottom: var(--spacing-12);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-16);
+}
+
+.card {
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--border-radius-400);
+    padding: var(--spacing-16);
+    background: var(--color-white);
+    box-shadow: var(--shadow-level-100);
+    transition: box-shadow 0.2s, background 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+}
+
+.card:hover {
+    background-color: var(--color-gray-100);
+    box-shadow: var(--shadow-level-200);
+}
+
+.card-icon { font-size: 24px; margin-bottom: var(--spacing-8); }
+.card-title { font-weight: var(--font-weight-medium); font-size: var(--font-size-100); }
+.card-meta { font-size: var(--font-size-50); color: var(--color-gray-500); margin-top: auto; }
+.sidebar-section-workspace{ overflow: scroll;}
+
+/* Контейнер редактора */
+.editor-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Apple Color Emoji, Arial, sans-serif;
+}
+
+/* Заголовок страницы */
+.file-title-input {
+    width: 100%;
+    font-size: 40px;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    color: #37352f;
+    margin-bottom: 20px;
+    background: transparent;
+}
+
+.file-title-input::placeholder {
+    color: rgba(55, 53, 47, 0.15);
+}
+
+/* Основное поле ввода */
+#markdown-editor {
+    width: 100%;
+    min-height: 200px;
+    border: none;
+    outline: none;
+    resize: none; /* Убираем ручное изменение размера */
+    font-size: 16px;
+    line-height: 1.5;
+    color: #37352f;
+    background: transparent;
+    overflow: hidden; /* Скрываем скроллбары внутри textarea */
+    padding: 0;
+}
+
+#markdown-editor::placeholder {
+    color: rgba(55, 53, 47, 0.3);
+}
+
+/* Имитация стилей Markdown при написании (опционально) */
+#markdown-editor {
+    font-variant-ligatures: common-ligatures;
+    tab-size: 4;
+}
+
+/* Центрируем основной контент в main-content */
+/* .main-content {
+    display: block;
+    overflow-y: auto;
+    background-color: #ffffff;
+} */
+ .editor-status {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+    height: 20px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+/* Улучшаем textarea для сходства с Notion */
+#markdown-editor {
+    border: none;
+    outline: none;
+    width: 100%;
+    resize: none;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #37352f;
+    background: transparent;
+    padding: 0;
+    margin-top: 10px;
+}
