@@ -11,8 +11,8 @@ body {
         margin: 0;
         font-family: var(--font-family-sans);
         background: var(--color-gray-100);
-        height: 100vh; /* ЭТО ОБЯЗАТЕЛЬНО для работы flex-контейнера на весь экран */
-        overflow: hidden; /* Чтобы скроллились только области внутри, а не весь сайт */
+        height: 100vh; 
+        overflow: hidden; 
     }
 
 /* .workspace {
@@ -115,9 +115,11 @@ body {
 }
 
 .card-grid {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: var(--spacing-16);
+    align-items: center;
+    justify-content: center;
 }
 
 .card {

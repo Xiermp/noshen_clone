@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2025 at 06:43 PM
+-- Generation Time: Jan 02, 2026 at 05:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `file_orders`
+--
+
+CREATE TABLE `file_orders` (
+  `user_id` int(11) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -37,8 +49,21 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `second_name`, `email`, `password`, `created_at`) VALUES
+(1, 'a', 'a', 'a@a', '$2y$10$tDB5ytBOgNXaBqPChM3j9OwMdF0YuIlscs/J/dP2.Sr7tzIhAB/nK', '2025-12-28 13:37:29');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `file_orders`
+--
+ALTER TABLE `file_orders`
+  ADD PRIMARY KEY (`user_id`,`file_name`);
 
 --
 -- Indexes for table `users`
@@ -55,7 +80,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

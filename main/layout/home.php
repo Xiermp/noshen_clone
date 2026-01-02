@@ -6,30 +6,31 @@
 
         <div class="widget-section">
             <div class="section-header">🕒 Recently visited</div>
-            
-            <div class="card-grid">
-                <a href="#" class="card">
-                    <div>
-                        <div class="card-icon">👋</div>
-                        <div class="card-title">Welcome to Notion</div>
-                    </div>
-                    <div class="card-meta">You visited 5m ago</div>
-                </a>
+            <div class="center-grid">
+                <div class="card-grid">
+                    <a href="#" class="card">
+                        <div>
+                            <div class="card-icon">👋</div>
+                            <div class="card-title">Welcome to Notion</div>
+                        </div>
+                        <div class="card-meta">You visited 5m ago</div>
+                    </a>
 
-                <a href="#" class="card">
-                    <div>
-                        <div class="card-icon">✅</div>
-                        <div class="card-title">Task List</div>
-                    </div>
-                    <div class="card-meta">You visited 1h ago</div>
-                </a>
-                
-                <a href="#" class="card" style="border-style: dashed;">
-                    <div>
-                        <div class="card-icon">➕</div>
-                        <div class="card-title">New page</div>
-                    </div>
-                </a>
+                    <a href="#" class="card">
+                        <div>
+                            <div class="card-icon">✅</div>
+                            <div class="card-title">Task List</div>
+                        </div>
+                        <div class="card-meta">You visited 1h ago</div>
+                    </a>
+                    
+                    <a href="#" class="card" style="border-style: dashed;">
+                        <div>
+                            <div class="card-icon">➕</div>
+                            <div class="card-title">New page</div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
 

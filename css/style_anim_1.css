@@ -50,7 +50,7 @@
     /* margin: 0.5em; */
     padding-right: 1em;
 }
-.card{
+/* .card{
     flex: 0 0 5em;
     height: 2em;
     padding: 1em;
@@ -62,7 +62,7 @@
     outline: none;
     text-decoration: none;
     
-}
+} */
 
 .page-norm{
     display: block;
@@ -79,5 +79,222 @@
 .bottom-info{
     width: 100%;
     color: black;
-    
+
+}
+/* ===== Reset ===== */
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #191918;
+    background: #ffffff;
+} */
+
+/* ===== NAV ===== */
+.nav-bar {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e6e6e6;
+    z-index: 100;
+}
+
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-left a {
+    text-decoration: none;
+    color: #191918;
+    font-size: 14px;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #191918;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.btn.primary {
+    background: #635dff;
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #4f49d6;
+}
+
+.btn.secondary {
+    background: #f3f3f3;
+    color: #191918;
+}
+
+.btn.secondary:hover {
+    background: #e8e8e8;
+}
+
+.btn.ghost {
+    color: #191918;
+}
+
+.btn.large {
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+/* ===== PAGE ===== */
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    padding: 100px 24px 80px;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+}
+
+.hero-text {
+    font-size: 20px;
+    color: #615d59;
+    max-width: 720px;
+    margin: 0 auto 32px;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.trusted {
+    font-size: 14px;
+    color: #78736f;
+}
+
+/* ===== TRUSTED GRID ===== */
+.trusted-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 0 24px 100px;
+}
+
+.card {
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 24px;
+    background: #ffffff;
+    font-size: 20px;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #615d59;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    border-top: 1px solid #e6e6e6;
+    padding: 24px;
+    text-align: center;
+    color: #78736f;
+    font-size: 14px;
+}
+
+/* ===== CAROUSEL SECTION ===== */
+
+.carousel-section {
+    padding: var(--spacing-64) var(--spacing-16);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.carousel-title {
+    text-align: center;
+    font-size: var(--font-size-600);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-32);
+}
+
+.carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    gap: var(--spacing-24);
+    width: max-content;
+    animation: carousel-scroll 30s linear infinite;
+}
+
+.carousel-card {
+    min-width: 280px;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--border-radius-300);
+    padding: var(--spacing-24);
+    box-shadow: var(--shadow-level-100);
+}
+
+.carousel-card h3 {
+    margin-bottom: var(--spacing-8);
+    font-size: var(--font-size-300);
+}
+
+.carousel-card p {
+    color: var(--color-gray-600);
+    font-size: var(--font-size-100);
+}
+
+/* Animation */
+@keyframes carousel-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }

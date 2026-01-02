@@ -15,7 +15,7 @@ $title = htmlspecialchars(basename($filename, '.md'));
 
     <div class="notion-editor-container">
         <textarea id="markdown-editor" 
-                  placeholder="Начните писать здесь..."
+                  placeholder="Write hear>>>"
                   oninput="autoResize(this); handleContentInput()"><?php echo htmlspecialchars($content); ?></textarea>
     </div>
 </div>
@@ -34,7 +34,6 @@ function autoResize(textarea) {
     textarea.style.height = textarea.scrollHeight + 'px';
 }
 
-// Сохранение содержимого
 function handleContentInput() {
     statusLabel.innerText = "Saving...";
     clearTimeout(saveTimeout);
@@ -45,7 +44,6 @@ function saveContent() {
     sendData({ file: currentFile, content: editor.value });
 }
 
-// Переименование файла
 function handleTitleInput() {
     statusLabel.innerText = "Renaming...";
     clearTimeout(titleTimeout);

@@ -123,17 +123,19 @@ $your_num = rand(1, 9999);
             <span>➕</span> Add a page
         </a>
 
-        <div class="sidebar-section-workspace">
+        <div class="sidebar-section-workspace" id="draggable-list">
         <?php
-        // Сканируем папку пользователя и выводим файлы
-        $files = scandir($user_dir);
-        foreach ($files as $file) {
-            if ($file === '.' || $file === '..') continue; 
-            
-            // Проверяем, активен ли этот файл сейчас
+
+        $physical_files = array_diff(scandir($user_dir), array('.', '..'));
+
+
+        foreach ($physical_files as $file) {
             $isActive = (isset($_GET['file']) && $_GET['file'] === $file) ? 'active' : '';
             
-            echo '<a href="?file='.urlencode($file).'" class="sidebar-menu-item '.$isActive.'">
+            echo '<a href="?file='.urlencode($file).'" 
+                    class="sidebar-menu-item '.$isActive.'" 
+                    draggable="true" 
+                    data-name="'.htmlspecialchars($file).'">
                 <span>📄</span> '.htmlspecialchars($file).'
             </a>';
         }
@@ -152,7 +154,7 @@ $your_num = rand(1, 9999);
     <main class="main-content">
     <?php
         if (isset($_GET['file'])) {
-            // 1. Показываем редактор файлов
+
             if (file_exists("layout/editor.php")) {
                 include "layout/editor.php";
             } else {
@@ -160,16 +162,15 @@ $your_num = rand(1, 9999);
             }
         } 
         elseif (isset($_GET['page']) && $_GET['page'] === 'settings') {
-            // 2. Показываем страницу настроек
-            // Создай этот файл в layout/settings.php
+
             if (file_exists("layout/settings.php")) {
                 include "layout/settings.php";
             } else {
-                echo "<div style='padding:50px'><h1>Settings</h1><p>Настройки профиля в разработке...</p></div>";
+                echo "<div style='padding:50px'><h1>Settings</h1><p>comming soon</p></div>";
             }
         } 
         else {
-            // 3. Домашняя страница (Home Dashboard)
+
             if (file_exists("layout/home.php")) {
                 include "layout/home.php";
             } else {
