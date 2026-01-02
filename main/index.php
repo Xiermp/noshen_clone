@@ -9,7 +9,9 @@ $_SESSION = array();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notion - One workspace. Every team.</title>
-    <link rel="stylesheet" href="../css/style_2.css"> <style>
+    <link rel="stylesheet" href="../css/style_2.css">
+    <link rel="stylesheet" href="../css/style_anim_1.css">
+    <style>
         body {
             font-family: var(--font-family-sans);
             margin: 0;
@@ -18,7 +20,7 @@ $_SESSION = array();
         }
 
         /* Navigation Bar */
-        nav {
+        /* nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -28,8 +30,8 @@ $_SESSION = array();
             top: 0;
             background: var(--color-white);
             z-index: 1000;
-        }
-
+        } */
+        
         .nav-left {
             display: flex;
             align-items: center;
@@ -133,47 +135,87 @@ $_SESSION = array();
     </style>
 </head>
 <body>
+    <div class="page-norm">
+        <div class="nav-bar">
+            <div class="nav-left">
+                <a href="#" class="logo">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="black"/></svg>
+                    Notion
+                </a>
+                <a href="#" class="nav-link">Product</a>
+                <a href="#" class="nav-link">Download</a>
+                <a href="#" class="nav-link">Solutions</a>
+                <a href="#" class="nav-link">Resources</a>
+                <a href="#" class="nav-link">Pricing</a>
+            </div>
+            <div class="nav-right">
+                <a href="#" class="btn btn-secondary">Request a demo</a>
+                <div style="width: 1px; height: 24px; background: var(--color-gray-300); margin: 0 8px;"></div>
+                <a href="login.php" class="btn btn-secondary">Log in</a>
+                <a href="registration.php" class="btn btn-primary">Get Notion free</a>
+            </div>
+    </div>
+        <div>
+        <div class="hero block">
+            <div class="hero-image-placeholder">
+                <img src="" alt="Team Illustration" style="max-width: 100%; height: auto;">
+            </div>
 
-    <nav>
-        <div class="nav-left">
-            <a href="#" class="logo">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="black"/></svg>
-                Notion
-            </a>
-            <a href="#" class="nav-link">Product</a>
-            <a href="#" class="nav-link">Download</a>
-            <a href="#" class="nav-link">Solutions</a>
-            <a href="#" class="nav-link">Resources</a>
-            <a href="#" class="nav-link">Pricing</a>
-        </div>
-        <div class="nav-right">
-            <a href="#" class="btn btn-secondary">Request a demo</a>
-            <div style="width: 1px; height: 24px; background: var(--color-gray-300); margin: 0 8px;"></div>
-            <a href="login.php" class="btn btn-secondary">Log in</a>
-            <a href="registration.php" class="btn btn-primary">Get Notion free</a>
-        </div>
-    </nav>
+            <h1>One workspace.<br>Zero busywork.</h1>
+            
+            <p class="subtext">
+                Notion is where your teams and AI agents capture knowledge, find answers, and automate projects. Now a team of 7 feels like 70.
+            </p>
 
-    <div class="hero">
-        <div class="hero-image-placeholder">
-            <img src="https://www.notion.so/cdn-cgi/image/format=auto,width=640,quality=100/front-static/pages/home/home-hero-yield-v2.png" alt="Team Illustration" style="max-width: 100%; height: auto;">
+            <div class="hero-buttons">
+                <a href="registration.php" class="btn btn-primary" style="padding: 12px 24px; font-size: var(--font-size-300);">Get Notion free</a>
+                <a href="#" class="btn btn-hero-secondary" style="padding: 12px 24px; font-size: var(--font-size-300);">Request a demo</a>
+            </div>
+            
+            <div style="margin-top: 40px; color: var(--color-gray-500);">
+                <p>Trusted by teams at OpenAI, Figma, Cursor, and more</p>
+            </div>
         </div>
-
-        <h1>One workspace.<br>Zero busywork.</h1>
+        </div>
+        <div class="block">a</div>
+        <div class="block">s</div>
+        <div class="block">d</div>
+        <div class="block">f</div>
         
-        <p class="subtext">
-            Notion is where your teams and AI agents capture knowledge, find answers, and automate projects. Now a team of 7 feels like 70.
-        </p>
 
-        <div class="hero-buttons">
-            <a href="registration.php" class="btn btn-primary" style="padding: 12px 24px; font-size: var(--font-size-300);">Get Notion free</a>
-            <a href="#" class="btn btn-hero-secondary" style="padding: 12px 24px; font-size: var(--font-size-300);">Request a demo</a>
+        <div class="carousel">
+            <div class="group">
+                <!-- <div class="card">1</div>
+                <div class="card">2</div>
+                <div class="card">3</div>
+                <div class="card">4</div>
+                <div class="card">5</div>
+                <div class="card">6</div> -->
+                <a href="#" class="card">1</a>
+                <a href="#" class="card">2</a>
+                <a href="#" class="card">3</a>
+                <a href="#" class="card">4</a>
+                <a href="#" class="card">5</a>
+                <a href="#" class="card">6</a>
+            </div>
+            <div aria-hidden class="group">
+                <a href="#" class="card">1</a>
+                <a href="#" class="card">2</a>
+                <a href="#" class="card">3</a>
+                <a href="#" class="card">4</a>
+                <a href="#" class="card">5</a>
+                <a href="#" class="card">6</a>
+            </div>
         </div>
-        
-        <div style="margin-top: 40px; color: var(--color-gray-500);">
-            <p>Trusted by teams at OpenAI, Figma, Cursor, and more</p>
+
+
+
+        <div class="bottom-info">
+            <div>
+                
+            </div>
         </div>
     </div>
-
+    
 </body>
 </html>
