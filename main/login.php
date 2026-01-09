@@ -54,6 +54,8 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in - Notion</title>
     <link rel="stylesheet" href="../css/style_2.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/style_anim_1.css">
     <style>
         body {
             font-family: var(--font-family-sans);
@@ -75,6 +77,7 @@ $conn->close();
             font-size: var(--font-size-600);
             font-weight: var(--font-weight-bold);
             margin-bottom: var(--spacing-24);
+            color: var(--text-main);
         }
         .input-group {
             margin-bottom: var(--spacing-16);
@@ -83,7 +86,7 @@ $conn->close();
         label {
             display: block;
             font-size: var(--font-size-50);
-            color: var(--color-gray-600);
+            color: var(--text-main);
             margin-bottom: var(--spacing-4);
         }
         input {
@@ -99,7 +102,7 @@ $conn->close();
             border-color: transparent;
         }
         button {
-            background-color: var(--color-red-500);
+            background-color: var(--button-colo-1);
             color: white;
             border: none;
             padding: var(--spacing-8) var(--spacing-16);
@@ -108,9 +111,15 @@ $conn->close();
             cursor: pointer;
             width: 100%;
             margin-top: var(--spacing-16);
+            box-shadow: 0 0 20px var(--shadow-box);
+
+            transition: all 0.4s ease;
         }
         button:hover {
-            background-color: var(--color-red-600);
+            /* filter: brightness(0.8); */
+            scale: 1.1;
+            box-shadow: 0 0 5px var(--shadow-box);
+
         }
         .error {
             color: var(--color-red-600);
@@ -130,12 +139,17 @@ $conn->close();
             text-decoration: underline;
         }
     </style>
+    
 </head>
-<body>
+<body class="body-1">
 
     <div class="login-container">
-        <div style="margin-bottom: 20px;">
-             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="black"/></svg>
+        <div style="margin-bottom: 20px; color: var(--text-main);">
+            <svg width="40" height="40" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z"
+                    fill="currentColor"/>
+            </svg>
         </div>
 
         <h1>Log in</h1>
@@ -165,6 +179,6 @@ $conn->close();
             <a href="index.php">Back to Home</a>
         </div>
     </div>
-
+<script src="../scripts/them_change.js"></script>
 </body>
 </html>

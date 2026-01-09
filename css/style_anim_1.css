@@ -98,7 +98,7 @@ body {
 .nav-bar {
     position: sticky;
     top: 0;
-    background: rgba(255,255,255,0.85);
+    background: var(--nav-colo);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid #e6e6e6;
     z-index: 100;
@@ -122,8 +122,10 @@ body {
 
 .nav-left a {
     text-decoration: none;
-    color: #191918;
+    color: var(--text-main);
+    /* text-decoration-color: --text-main; */
     font-size: 14px;
+    text-decoration: none;
 }
 
 .logo {
@@ -147,12 +149,14 @@ body {
 }
 
 .btn.primary {
-    background: #635dff;
+    background: var(--cont-color);
     color: white;
+    transition: filter 0.2 ease;
 }
 
 .btn.primary:hover {
-    background: #4f49d6;
+    /* background: var(--cont-color); */
+    filter: brightness(0.9);
 }
 
 .btn.secondary {
@@ -165,7 +169,7 @@ body {
 }
 
 .btn.ghost {
-    color: #191918;
+    color: var(--text-main);
 }
 
 .btn.large {
@@ -178,7 +182,13 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
-
+.body-1 {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    /* color: var(--text-secondary); */
+    background-color: var(--bg-main);
+}
 /* ===== HERO ===== */
 .hero {
     text-align: center;

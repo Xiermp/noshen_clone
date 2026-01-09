@@ -13,7 +13,12 @@ $files = scandir($user_dir);
     <?php foreach ($files as $file): ?>
         <?php if ($file === '.' || $file === '..') continue; ?>
         <a href="?file=<?= urlencode($file) ?>" class="sidebar-item">
-            📄 <?= htmlspecialchars($file) ?>
+            📄 <?= htmlspecialchars($file) ?> " " 
+            <a href="actions/delete.php?file=myfile.md"
+            onclick="return confirm('Delete this file?')"
+            class="delete-btn">
+            🗑
+            </a>
         </a>
     <?php endforeach; ?>
 </aside>

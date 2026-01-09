@@ -2,7 +2,7 @@
    1. VARIABLES & THEMES (Из style_2.css)
    ========================================= */
 :root {
-    
+    --nav-color: #ffffff;
     --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
     --font-size-100: 14px;
     --border-radius-300: 0.3125rem;
@@ -18,10 +18,14 @@
     --border-color: rgba(55, 53, 47, 0.09);
     
     --input-placeholder: rgba(55, 53, 47, 0.15);
+    --cont-color: #9d4af0;
+    --button-colo-1: #664391;
+    --shadow-box: rgba(0, 0, 0, 0.6);
 }
 
 /* --- dark (Override) --- */
 [data-theme="dark"] {
+    --nav-color: #1a1a1a;
     --bg-main: #191919;
     --bg-sidebar: #202020;
     --bg-hover: rgba(255, 255, 255, 0.055);
@@ -32,6 +36,9 @@
     --border-color: rgba(255, 255, 255, 0.07);
     
     --input-placeholder: rgba(255, 255, 255, 0.2);
+    --cont-color: #664391;
+    --button-colo-1: #9d4af0;
+    --shadow-box: rgba(255, 255, 255, 0.6);
 }
 
 /* =========================================

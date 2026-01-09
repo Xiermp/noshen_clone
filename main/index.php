@@ -2,7 +2,7 @@
 // index.php – Landing page only
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>Notion – One workspace. Zero busywork.</title>
@@ -18,6 +18,7 @@
     <div class="nav-inner">
         <div class="nav-left">
             <div class="logo">N</div>
+            
             <a href="#">Product</a>
             <a href="#">Solutions</a>
             <a href="#">Resources</a>
@@ -119,7 +120,7 @@
 <footer class="footer">
     <p>© 2026 Notion-like project</p>
 </footer>
-<script>
+<!-- <script>
 
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -137,6 +138,7 @@ function toggleTheme() {
 
     localStorage.setItem('theme', newTheme);
 }
-</script>
+</script> -->
+<script src="../scripts/them_change.js"></script>
 </body>
 </html>

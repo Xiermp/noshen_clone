@@ -60,11 +60,18 @@
             <span>style</span>
             <span></span>
             <select name="" id="">
-                <option value="">a</option>
+                <a href="" onclick="toggleTheme()" style="background:none; border:1px solid var(--border-color); color:var(--text-main); padding: 5px 10px; cursor:pointer; border-radius: 4px; width:100%; text-align:left;">
+                    🌗 Switch Theme
+                </a>
+                
+                
                 <option value="">a</option>
                 <option value="">a</option>
                 <option value="">a</option>
             </select>
+            <button onclick="toggleTheme()" style="background:none; border:1px solid var(--border-color); color:var(--text-main); padding: 5px 10px; cursor:pointer; border-radius: 4px; width:100%; text-align:left;">
+                    🌗 Switch Theme
+                </button>
         </div>
         <div class="settings-palse">
             <span></span>
@@ -84,3 +91,4 @@
         Save Changes
     </button>
 </div>
+<script src="../scripts/them_change.js"></script>

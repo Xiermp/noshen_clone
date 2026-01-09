@@ -60,9 +60,11 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notion Clone - Sign Up</title>
     <link rel="stylesheet" href="../css/style_2.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/style_anim_1.css">
     <style>
         /* Simple inline styles to utilize your CSS variables */
-        body {
+        /* body {
             font-family: var(--font-family-sans);
             background-color: var(--color-white);
             display: flex;
@@ -100,14 +102,14 @@ $conn->close();
             border-radius: var(--border-radius-200);
             font-size: var(--font-size-100);
             box-sizing: border-box; /* Ensures padding doesn't break width */
-        }
+        /* }
         input:focus {
             outline: 2px solid var(--color-blue-400);
             border-color: transparent;
         }
         button {
             background-color: var(--color-red-500); /* Notion often uses red/pink for buttons */
-            color: white;
+            /* color: white;
             border: none;
             padding: var(--spacing-8) var(--spacing-16);
             border-radius: var(--border-radius-200);
@@ -123,14 +125,105 @@ $conn->close();
             color: var(--color-red-600);
             font-size: var(--font-size-100);
             margin-bottom: var(--spacing-16);
+        } */
+        body {
+            font-family: var(--font-family-sans);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--color-white);
+            color: var(--color-text);
+            margin: 0;
         }
+        .login-container {
+            width: 100%;
+            max-width: 360px;
+            padding: var(--spacing-24);
+            text-align: center;
+        }
+        h1 {
+            font-size: var(--font-size-600);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-24);
+            color: var(--text-main);
+        }
+        .input-group {
+            margin-bottom: var(--spacing-16);
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: var(--font-size-50);
+            color: var(--text-main);
+            margin-bottom: var(--spacing-4);
+        }
+        input {
+            width: 100%;
+            padding: var(--spacing-8) var(--spacing-12);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius-200);
+            font-size: var(--font-size-100);
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: 2px solid var(--color-blue-400);
+            border-color: transparent;
+        }
+        button {
+            background-color: var(--button-colo-1);
+            color: white;
+            border: none;
+            padding: var(--spacing-8) var(--spacing-16);
+            border-radius: var(--border-radius-200);
+            font-size: var(--font-size-200);
+            cursor: pointer;
+            width: 100%;
+            margin-top: var(--spacing-16);
+            box-shadow: 0 0 20px var(--shadow-box);
+
+            transition: all 0.4s ease;
+        }
+        button:hover {
+            /* filter: brightness(0.8); */
+            scale: 1.1;
+            box-shadow: 0 0 5px var(--shadow-box);
+
+        }
+        .error {
+            color: var(--color-red-600);
+            background: var(--color-red-100);
+            padding: var(--spacing-8);
+            border-radius: var(--border-radius-200);
+            margin-bottom: var(--spacing-16);
+            font-size: var(--font-size-100);
+        }
+        .bottom-link {
+            margin-top: var(--spacing-24);
+            font-size: var(--font-size-100);
+            color: var(--color-gray-600);
+        }
+        .bottom-link a {
+            color: var(--color-text);
+            text-decoration: underline;
+        }   
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            padding: var(--spacing-32);
+            text-align: center;
+        } 
     </style>
 </head>
-<body>
+<body class="body-1">
 
     <div class="auth-container">
-        <div style="margin-bottom: 20px;">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="black"/></svg>
+        <div style="margin-bottom: 20px; color: var(--text-main);">
+            <svg width="40" height="40" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4V20H20V4H4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4Z"
+                    fill="currentColor"/>
+            </svg>
         </div>
 
         <h1>Sign up</h1>
@@ -168,10 +261,10 @@ $conn->close();
             <button type="submit">Continue</button>
         </form>
         
-        <p style="margin-top: 20px; font-size: var(--font-size-50);">
-            Already have an account? <a href="login.php" style="color: var(--color-blue-600);">Log in</a>
+        <p style="margin-top: 20px; font-size: var(--font-size-50); color: var(--text-main);">
+            Already have an account? <a href="login.php" style="color: var(--text-main);">Log in</a>
         </p>
     </div>
-
+<script src="../scripts/them_change.js"></script>
 </body>
 </html>
