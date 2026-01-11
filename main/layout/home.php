@@ -2,7 +2,22 @@
 <link rel="stylesheet" href="../../css/style_work_ar.css"> -->
 <!-- <link rel="stylesheet" href="style.css"> -->
 
-<h1 class="greeting-title"><?php echo $greeting; ?>, <?php echo htmlspecialchars($_SESSION['user_name']); ?><br>your number is : <?php echo $your_num ?></h1>
+<h1 class="greeting-title">
+    <div style="padding: 80px 40px; max-width: 800px; margin: 0 auto;">
+    <h1 class="greeting-title" style="font-size: 40px; margin-bottom: 10px;">
+        <?php echo $greeting; ?>, <?php echo htmlspecialchars($_SESSION['user_name']); ?>
+    </h1>
+    <p style="font-size: 18px; color: var(--text-muted);">
+        Your random number for today: <span style="color: var(--text-main); font-weight: 600;"><?php echo $your_num; ?></span>
+    </p>
+    
+    <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="padding: 20px; border: 1px solid var(--border-color); border-radius: 8px;">
+            <h3>Getting Started</h3>
+            <p style="font-size: 14px; color: var(--text-muted);">Click "Add a page" in the sidebar to create your first document.</p>
+        </div>
+    </div>
+</div>
 
         <div class="widget-section">
             <div class="section-header">🕒 Recently visited</div>

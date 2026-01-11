@@ -1,173 +1,186 @@
 /* =========================================
-   1. VARIABLES & THEMES (Из style_2.css)
+   1. VARIABLES (НЕ ТРОГАЕМ ЦВЕТА)
    ========================================= */
 :root {
-    --nav-color: #ffffff;
-    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
     --font-size-100: 14px;
     --border-radius-300: 0.3125rem;
-    
-    /* --- light (По умолчанию) --- */
+
+    /* light */
     --bg-main: #ffffff;
     --bg-sidebar: #f7f6f3;
     --bg-hover: rgba(55, 53, 47, 0.08);
-    
+
     --text-main: #37352f;
     --text-muted: rgba(25, 23, 17, 0.6);
-    
+
     --border-color: rgba(55, 53, 47, 0.09);
-    
+
     --input-placeholder: rgba(55, 53, 47, 0.15);
     --cont-color: #9d4af0;
     --button-colo-1: #664391;
+
     --shadow-box: rgba(0, 0, 0, 0.6);
+
+    --sidebar-width: 240px;
 }
 
-/* --- dark (Override) --- */
+/* Dark */
 [data-theme="dark"] {
-    --nav-color: #1a1a1a;
     --bg-main: #191919;
     --bg-sidebar: #202020;
     --bg-hover: rgba(255, 255, 255, 0.055);
-    
+
     --text-main: #d4d4d4;
     --text-muted: rgba(255, 255, 255, 0.44);
-    
+
     --border-color: rgba(255, 255, 255, 0.07);
-    
+
     --input-placeholder: rgba(255, 255, 255, 0.2);
     --cont-color: #664391;
     --button-colo-1: #9d4af0;
+
     --shadow-box: rgba(255, 255, 255, 0.6);
 }
 
 /* =========================================
-   2. GLOBAL RESET & BASE (Из style_work_ar.css)
+   2. RESET / BASE
    ========================================= */
-body {
-    margin: 0;
-    font-family: var(--font-family-sans);
-    background: var(--bg-main);   /* Используем переменную! */
-    color: var(--text-main);      /* Используем переменную! */
-    height: 100vh; 
-    overflow: hidden; 
-    transition: background 0.3s ease, color 0.3s ease; /* Плавная смена темы */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-.app-container {
-    display: flex;
+html, body {
     height: 100%;
-    width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-size: var(--font-size-100);
+    overflow: hidden;
 }
 
 /* =========================================
-   3. SIDEBAR (Сайдбар)
+   3. APP LAYOUT
+   ========================================= */
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* =========================================
+   4. SIDEBAR (ЕДИНСТВЕННАЯ ВЕРСИЯ)
    ========================================= */
 .sidebar {
-    width: 240px;
-    background-color: var(--bg-sidebar); /* Var */
-    border-right: 1px solid var(--border-color); /* Var */
+    width: var(--sidebar-width);
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     padding: 12px;
     flex-shrink: 0;
-    font-size: var(--font-size-100);
-    transition: background-color 0.3s ease;
+    transition: width 0.25s ease, padding 0.25s ease;
 }
 
-.sidebar-menu-item {
+.sidebar.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* items */
+.sidebar-item {
     display: flex;
     align-items: center;
     padding: 6px 10px;
-    margin-bottom: 2px;
-    border-radius: var(--border-radius-300);
-    color: var(--text-main); /* Var */
-    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
+    color: var(--text-main);
     user-select: none;
-    transition: background-color 0.1s;
 }
 
-.sidebar-menu-item:hover {
-    background-color: var(--bg-hover); /* Var */
+.sidebar-item:hover {
+    background: var(--bg-hover);
 }
 
-.sidebar-menu-item.active {
-    background-color: var(--bg-hover);
+.sidebar-title {
+    margin: 16px 10px 6px;
+    font-size: 12px;
     font-weight: 600;
-}
-
-.sidebar-menu-item span {
-    margin-right: 10px;
-    font-size: 16px;
-}
-
-/* Секция для файлов */
-.sidebar-section-workspace {
-    margin-top: 10px;
-    overflow-y: auto;
-    flex-grow: 1; 
+    text-transform: uppercase;
+    color: var(--text-muted);
 }
 
 /* =========================================
-   4. MAIN EDITOR (Редактор)
+   5. MAIN CONTENT
    ========================================= */
 .main-content {
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background-color: var(--bg-main); /* Var */
-    position: relative;
+    background: var(--bg-main);
 }
 
-.editor-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 60px 50px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-y: auto;
-    height: 100%;
+/* =========================================
+   6. USER / POPOVER (БАЗА)
+   ========================================= */
+.user-btn {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.editor-status {
-    position: absolute;
-    top: 15px;
-    right: 20px;
+.user-btn:hover {
+    background: var(--bg-hover);
+}
+
+.user-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background: #e0e0e0;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 12px;
-    color: var(--text-muted); /* Var */
 }
 
-/* Инпуты */
-.file-title-input {
-    width: 100%;
-    font-size: 40px;
-    font-weight: 700;
-    border: none;
-    outline: none;
-    color: var(--text-main); /* Var */
-    margin-bottom: 20px;
-    background: transparent;
+.account-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 220px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: none;
+    flex-direction: column;
+    padding: 6px;
+    z-index: 1000;
 }
 
-.file-title-input::placeholder {
-    color: var(--input-placeholder);
+.account-dropdown.show {
+    display: flex;
 }
 
-#markdown-editor {
-    width: 100%;
-    min-height: 200px;
-    border: none;
-    outline: none;
-    resize: none;
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--text-main); /* Var */
-    background: transparent;
-    font-family: var(--font-family-sans);
+.dropdown-item {
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-#markdown-editor::placeholder {
-    color: var(--input-placeholder);
+.dropdown-item:hover {
+    background: var(--bg-hover);
 }
