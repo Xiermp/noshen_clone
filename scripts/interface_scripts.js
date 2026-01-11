@@ -1,25 +1,20 @@
-// function interfaceScripts() {
-//     document.getElementById("add_seting_button").addEventListener("click", function() {
-//         const settingsMenu = document.getElementById("settings_menu");
-//         if (settingsMenu.style.display === "block") {
-//             settingsMenu.style.display = "none";
-//         } else {
-//             settingsMenu.style.display = "block";
-//         }
-//     });
-    
-//     console.log("Interface scripts loaded.");
-// }
 const list = document.getElementById('draggable-list');
 let draggingElement = null;
 
 list.addEventListener('dragstart', (e) => {
-    draggingElement = e.target;
-    e.target.classList.add('dragging');
+
+    if (e.target.classList.contains('sidebar-menu-item')) {
+        draggingElement = e.target.closest('.file-item-wrapper');
+        if (draggingElement) {
+            draggingElement.classList.add('dragging');
+        }
+    }
 });
 
 list.addEventListener('dragover', (e) => {
     e.preventDefault();
+    if (!draggingElement) return;
+    
     const afterElement = getDragAfterElement(list, e.clientY);
     if (afterElement == null) {
         list.appendChild(draggingElement);
@@ -29,12 +24,15 @@ list.addEventListener('dragover', (e) => {
 });
 
 list.addEventListener('dragend', () => {
-    draggingElement.classList.remove('dragging');
-    saveNewOrder();
+    if (draggingElement) {
+        draggingElement.classList.remove('dragging');
+        saveNewOrder();
+        draggingElement = null;
+    }
 });
 
 function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll('.sidebar-menu-item:not(.dragging)')];
+    const draggableElements = [...container.querySelectorAll('.file-item-wrapper:not(.dragging)')];
     return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
@@ -47,8 +45,11 @@ function getDragAfterElement(container, y) {
 }
 
 function saveNewOrder() {
-    const items = [...list.querySelectorAll('.sidebar-menu-item')];
-    const order = items.map(item => item.getAttribute('data-name'));
+    const items = [...list.querySelectorAll('.file-item-wrapper')];
+    const order = items.map(item => {
+        const link = item.querySelector('.sidebar-menu-item');
+        return link ? link.getAttribute('data-name') : null;
+    }).filter(Boolean);
 
     fetch('actions/save_order.php', {
         method: 'POST',
@@ -56,25 +57,6 @@ function saveNewOrder() {
         body: JSON.stringify({ order: order })
     })
     .then(res => res.json())
-    .then(data => console.log("Order saved"));
+    .then(data => console.log("Order saved"))
+    .catch(err => console.error("Error saving order:", err));
 }
- 
-// user bar drop out
-// document.addEventListener('DOMContentLoaded', () => {
-//     const switcherBtn = document.getElementById('user-switcher-btn');
-//     const dropdown = document.getElementById('user-dropdown');
-
-
-//     switcherBtn.addEventListener('click', (e) => {
-
-//         e.stopPropagation(); 
-//         dropdown.classList.toggle('active');
-//     });
-
-
-//     document.addEventListener('click', (e) => {
-//         if (!dropdown.contains(e.target) && dropdown.classList.contains('active')) {
-//             dropdown.classList.remove('active');
-//         }
-//     });
-// });

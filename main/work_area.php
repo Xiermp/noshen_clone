@@ -25,35 +25,6 @@ if (isset($_GET['create'])) {
     header("Location: ?file=" . urlencode($newFileName));
     exit();
 }
-// session_start();
-
-// // 1. Security Check
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: login.php");
-//     exit();
-// }
-
-// $user_dir = "../data/user_files/" . $_SESSION['user_email'];
-
-// // 2. Ensure User Directory Exists
-// if (!is_dir($user_dir)) {
-//     mkdir($user_dir, 0777, true);
-// }
-
-// // 3. LOGIC: Create New Page
-// // Если нажали "Add a page", создаем файл и редиректим на него
-// if (isset($_GET['create'])) {
-//     $newFileName = "Untitled_" . date('Ymd_His') . ".txt"; // Уникальное имя
-//     $newFilePath = $user_dir . "/" . $newFileName;
-    
-//     if (!file_exists($newFilePath)) {
-//         file_put_contents($newFilePath, ""); // Создаем пустой файл
-//     }
-    
-//     // Перенаправляем пользователя сразу в этот файл
-//     header("Location: ?file=" . urlencode($newFileName));
-//     exit();
-// }
 
 // 4. Greeting Logic
 $hour = date('H');
@@ -64,36 +35,9 @@ if ($hour < 12) {
 } else {
     $greeting = "Good evening";
 }
-//  probably i use it late
-// if (!isset($_SESSION['already_welcomed'])){
-
-//     $_SESSION['your_number'] = rand(1, 9999);
-//     $_SESSION['already_welcomed'] = true;
-// }
-// $your_num = $_SESSION['your_number'];
-
 
 ?>
 <script src="../scripts/them_change.js"></script>
-<!-- <script>
-    function updateTheme(theme) {
-
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-
-
-    fetch('update_theme.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'theme=' + theme
-    })
-    .then(response => response.text())
-    .then(data => console.log('Session updated:', data))
-    .catch(error => console.error('Error:', error));
-}
-</script> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,8 +53,39 @@ if ($hour < 12) {
     <script src="../scripts/interface_scripts.js" defer></script>
 
     <style>
-        /* CSS Specific to the Workspace Layout */
+        .file-item-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
         
+        .file-item-wrapper .sidebar-menu-item {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .delete-file-btn {
+            opacity: 0;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .file-item-wrapper:hover .delete-file-btn {
+            opacity: 1;
+        }
+        
+        .delete-file-btn:hover {
+            background: rgba(235, 87, 87, 0.1);
+            color: #eb5757;
+        }
     </style>
 </head>
 <body>
@@ -149,9 +124,6 @@ if ($hour < 12) {
         <a href="#" class="sidebar-menu-item">
             <span>📥</span> Inbox
         </a>
-        <!-- <a href="?page=settings" class="sidebar-menu-item <?php echo (isset($_GET['page']) && $_GET['page'] === 'settings') ? 'active' : ''; ?>">
-            <span>⚙️</span> Settings
-        </a> -->
         
         <div class="sidebar-section-title">Private</div>
         
@@ -164,27 +136,24 @@ if ($hour < 12) {
 
         $physical_files = array_diff(scandir($user_dir), array('.', '..'));
 
-
         foreach ($physical_files as $file) {
             $isActive = (isset($_GET['file']) && $_GET['file'] === $file) ? 'active' : '';
             
-            echo '<a href="?file='.urlencode($file).'" 
+            echo '<div class="file-item-wrapper">
+                <a href="?file='.urlencode($file).'" 
                     class="sidebar-menu-item '.$isActive.'" 
                     draggable="true" 
                     data-name="'.htmlspecialchars($file).'">
-                <span>📄</span> '.htmlspecialchars($file).'
-            </a>';
+                    <span>📄</span> '.htmlspecialchars($file).'
+                </a>
+                <button class="delete-file-btn" onclick="deleteFile(\''.htmlspecialchars($file, ENT_QUOTES).'\', event)" title="Delete">
+                    🗑️
+                </button>
+            </div>';
         }
         ?>
         </div>
-        
-        
 
-        <!-- <div style="margin-top: auto;">
-            <a href="index.php" class="sidebar-menu-item">
-                <span>🚪</span> Log out
-            </a>
-        </div> -->
     </aside>
 
     <main class="main-content">
@@ -221,24 +190,31 @@ if ($hour < 12) {
 
 </div>
 <script>
+function deleteFile(filename, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    if (confirm('Are you sure you want to delete "' + filename + '"?')) {
+        window.location.href = 'actions/delete.php?file=' + encodeURIComponent(filename);
+    }
+}
+
 // user bar drop out
 document.addEventListener('DOMContentLoaded', () => {
     const switcherBtn = document.getElementById('user-switcher-btn');
     const dropdown = document.getElementById('user-dropdown');
 
-
     switcherBtn.addEventListener('click', (e) => {
-
         e.stopPropagation(); 
         dropdown.classList.toggle('active');
     });
-
 
     document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target) && dropdown.classList.contains('active')) {
             dropdown.classList.remove('active');
         }
     });
-});</script>
+});
+</script>
 </body>
 </html>

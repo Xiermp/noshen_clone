@@ -1,10 +1,8 @@
 <?php
 session_start();
-// Проверь, правильный ли путь к конфигу. 
-// Если save_order.php в main/actions/, а config.php в main/pages/, то путь:
+
 include "../../pages/config.php"; 
-// ИЛИ если config.php лежит в main/:
-// include "../config.php"; 
+
 
 header('Content-Type: application/json');
 
@@ -13,7 +11,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 if (isset($data['order']) && isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     
-    // Подготовка запроса (INSERT или UPDATE, если запись уже есть)
+
     $stmt = $pdo->prepare("INSERT INTO file_orders (user_id, file_name, position) VALUES (:uid, :fname, :pos) ON DUPLICATE KEY UPDATE position = :pos");
     
     try {

@@ -1,12 +1,13 @@
 <?php
-    $db_host = "localhost";
-    $db_user = "rost";
-    $db_pass = "";
-    $db_name = "noshen"; // The actual name of your database in MySQL
+$host = 'localhost';
+$dbname = 'noshen';
+$username = 'rost';
+$password = '';
 
-    $connect = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
-    if (!$connect) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
 ?>
