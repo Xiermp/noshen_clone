@@ -1,5 +1,5 @@
 /* =========================================
-   1. VARIABLES & THEMES (Из style_2.css)
+   1. VARIABLES & THEMES
    ========================================= */
 :root {
     --nav-color: #ffffff;
@@ -7,7 +7,7 @@
     --font-size-100: 14px;
     --border-radius-300: 0.3125rem;
     
-    /* --- light (По умолчанию) --- */
+    /* --- light --- */
     --bg-main: #ffffff;
     --bg-sidebar: #f7f6f3;
     --bg-hover: rgba(55, 53, 47, 0.08);
@@ -42,13 +42,13 @@
 }
 
 /* =========================================
-   2. GLOBAL RESET & BASE (Из style_work_ar.css)
+   2. GLOBAL RESET & BASE
    ========================================= */
 body {
     margin: 0;
     font-family: var(--font-family-sans);
-    background: var(--bg-main);   /* Используем переменную! */
-    color: var(--text-main);      /* Используем переменную! */
+    background: var(--bg-main);
+    color: var(--text-main);
     height: 100vh; 
     overflow: hidden; 
     transition: background 0.3s ease, color 0.3s ease; /* Плавная смена темы */
@@ -61,7 +61,7 @@ body {
 }
 
 /* =========================================
-   3. SIDEBAR (Сайдбар)
+   3. SIDEBAR
    ========================================= */
 .sidebar {
     width: 240px;
@@ -102,7 +102,6 @@ body {
     font-size: 16px;
 }
 
-/* Секция для файлов */
 .sidebar-section-workspace {
     margin-top: 10px;
     overflow-y: auto;
@@ -110,7 +109,7 @@ body {
 }
 
 /* =========================================
-   4. MAIN EDITOR (Редактор)
+   4. MAIN EDITOR
    ========================================= */
 .main-content {
     flex-grow: 1;
@@ -139,7 +138,6 @@ body {
     color: var(--text-muted); /* Var */
 }
 
-/* Инпуты */
 .file-title-input {
     width: 100%;
     font-size: 40px;
@@ -170,4 +168,259 @@ body {
 
 #markdown-editor::placeholder {
     color: var(--input-placeholder);
+}
+/* =========================================
+   6. USER / POPOVER
+   ========================================= */
+.user-btn {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-btn:hover {
+    background: var(--bg-hover);
+}
+
+.user-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background: #e0e0e0;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.account-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 220px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: none;
+    flex-direction: column;
+    padding: 6px;
+    z-index: 1000;
+}
+
+.account-dropdown.show {
+    display: flex;
+}
+
+.dropdown-item {
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-hover);
+}
+
+.sidebar.collapsed {
+    width: 0;
+    transform: translateX(-100%);
+}
+
+
+.sidebar-resizer-btn {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 11;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.sidebar:hover .sidebar-resizer-btn, .sidebar.collapsed + .open-trigger:hover .sidebar-resizer-btn {
+    opacity: 1;
+}
+
+.sidebar-resizer-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--text-muted);
+    transition: transform 0.3s;
+}
+
+.sidebar.collapsed .sidebar-resizer-btn {
+    transform: translateY(-50%) rotate(180deg);
+    right: -34px;
+    opacity: 1;
+}
+
+/* =========================================
+   3. (Popover)
+   ========================================= */
+.user-switcher {
+    position: relative;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.account-popover {
+    position: absolute;
+    top: 50px;
+    left: 12px;
+    width: 260px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-popover);
+    display: none;
+    flex-direction: column;
+    padding: 6px;
+    z-index: 1000;
+}
+
+.account-popover.active { display: flex; }
+
+.popover-item {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.popover-item:hover { background: var(--bg-hover); }
+
+/* =========================================
+   4. (SETTINGS)
+   ========================================= */
+.settings-layout {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.setting-section {
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.setting-label h4 { margin: 0; font-size: 15px; font-weight: 500; }
+.setting-label p { margin: 4px 0 0; font-size: 13px; color: var(--text-muted); }
+
+.settings-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+}
+.settings-header {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.settings-group { margin-bottom: 40px; }
+.settings-group-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.setting-info h4 { margin: 0; font-size: 15px; font-weight: 500; }
+.setting-info p { margin: 4px 0 0; font-size: 13px; color: var(--text-muted); }
+
+
+.setting-control select, .setting-control input {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+}
+.setting-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.1s;
+}
+.setting-btn:hover { background: var(--bg-hover); }
+.setting-btn.danger { color: #eb5757; border-color: rgba(235, 87, 87, 0.3); }
+.setting-btn.danger:hover { background: rgba(235, 87, 87, 0.05); }
+
+/* =========================================
+ MAIN CONTENT AREA
+   ========================================= */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    position: relative;
+    background: var(--bg-main);
+}
+
+
+/* SCROLL BAR */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 3. Сам ползунок (бегунок) */
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
 }

@@ -58,3 +58,23 @@ function saveNewOrder() {
     .then(res => res.json())
     .then(data => console.log("Order saved"));
 }
+ 
+// user bar drop out
+// document.addEventListener('DOMContentLoaded', () => {
+//     const switcherBtn = document.getElementById('user-switcher-btn');
+//     const dropdown = document.getElementById('user-dropdown');
+
+
+//     switcherBtn.addEventListener('click', (e) => {
+
+//         e.stopPropagation(); 
+//         dropdown.classList.toggle('active');
+//     });
+
+
+//     document.addEventListener('click', (e) => {
+//         if (!dropdown.contains(e.target) && dropdown.classList.contains('active')) {
+//             dropdown.classList.remove('active');
+//         }
+//     });
+// });

@@ -200,3 +200,54 @@ button:active .b_top{
     align-items: center;
     justify-content: center;
 }
+
+.sidebar {
+    width: 240px;
+    background: #111;
+    color: #fff;
+    padding: 15px;
+}
+
+.sidebar-title {
+    margin: 15px 0 8px;
+    font-size: 13px;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+.sidebar-item {
+    color: #ddd;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    display: block;
+    transition: background 0.2s;
+}
+
+.sidebar-item:hover {
+    background: #1f1f1f;
+}
+
+.sidebar-file {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.delete-btn {
+    opacity: 0;
+    text-decoration: none;
+    color: #ff6b6b;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.sidebar-file:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: rgba(255, 107, 107, 0.15);
+}
